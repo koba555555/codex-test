@@ -34,14 +34,16 @@ body {
 
 .calendar-card,
 .task-card,
-.gantt-card {
+.gantt-card,
+.data-card {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 0.8rem;
 }
 
-.gantt-card { grid-column: 1 / -1; }
+.gantt-card,
+.data-card { grid-column: 1 / -1; }
 .gantt-card h2 { margin: 0 0 0.6rem; font-size: 1rem; }
 
 .calendar-topbar {
@@ -229,3 +231,18 @@ body {
   margin-top: 0.45rem;
   color: var(--muted);
 }
+
+
+.data-card h2 { margin: 0 0 0.4rem; font-size: 1rem; }
+.data-note { margin: 0 0 0.6rem; color: var(--muted); font-size: 0.9rem; }
+.data-actions { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.data-actions button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.58rem 0.7rem;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+.data-actions .secondary { background: #0f766e; }
+.data-actions .danger { background: var(--danger); }

@@ -15,6 +15,10 @@ const workEndInput = document.getElementById('workEndInput');
 const workProgressInput = document.getElementById('workProgressInput');
 const ganttBody = document.getElementById('ganttBody');
 const ganttEmpty = document.getElementById('ganttEmpty');
+const exportDataBtn = document.getElementById('exportDataBtn');
+const importDataBtn = document.getElementById('importDataBtn');
+const resetDataBtn = document.getElementById('resetDataBtn');
+const importDataFile = document.getElementById('importDataFile');
 
 const state = {
   viewDate: new Date(),
@@ -50,6 +54,42 @@ function load(key) {
 function save() {
   localStorage.setItem('calendarTasks', JSON.stringify(state.tasksByDate));
   localStorage.setItem('calendarWorks', JSON.stringify(state.works));
+}
+
+function exportData() {
+  const backup = {
+    exportedAt: new Date().toISOString(),
+    tasksByDate: state.tasksByDate,
+    works: state.works,
+  };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  const dateText = new Date().toISOString().slice(0, 10);
+  link.href = url;
+  link.download = `genba-backup-${dateText}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(String(reader.result));
+      if (!data || typeof data !== 'object') throw new Error('bad data');
+      state.tasksByDate = data.tasksByDate && typeof data.tasksByDate === 'object' ? data.tasksByDate : {};
+      state.works = Array.isArray(data.works) ? data.works : [];
+      save();
+      renderCalendar();
+      renderTasks();
+      renderGantt();
+      alert('バックアップを読み込みました。');
+    } catch {
+      alert('読み込みに失敗しました。正しいバックアップJSONを選んでください。');
+    }
+  };
+  reader.readAsText(file);
 }
 
 function updateSelectedDateLabel() {
@@ -244,6 +284,33 @@ taskForm.addEventListener('submit', (event) => {
   noteInput.value = '';
   renderCalendar();
   renderTasks();
+});
+
+
+exportDataBtn.addEventListener('click', () => {
+  exportData();
+});
+
+importDataBtn.addEventListener('click', () => {
+  importDataFile.click();
+});
+
+importDataFile.addEventListener('change', (event) => {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  importData(file);
+  importDataFile.value = '';
+});
+
+resetDataBtn.addEventListener('click', () => {
+  const ok = confirm('この端末に保存されたデータを全削除します。よろしいですか？');
+  if (!ok) return;
+  state.tasksByDate = {};
+  state.works = [];
+  save();
+  renderCalendar();
+  renderTasks();
+  renderGantt();
 });
 
 workForm.addEventListener('submit', (event) => {

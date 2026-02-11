@@ -50,6 +50,18 @@
         <ul id="taskList" class="task-list"></ul>
       </section>
 
+
+      <section class="data-card">
+        <h2>データの保存・引っ越し</h2>
+        <p class="data-note">機種変更前やバックアップしたい時に使ってください。</p>
+        <div class="data-actions">
+          <button id="exportDataBtn" type="button">バックアップを書き出し</button>
+          <button id="importDataBtn" type="button" class="secondary">バックアップを読み込み</button>
+          <button id="resetDataBtn" type="button" class="danger">この端末のデータを全削除</button>
+        </div>
+        <input id="importDataFile" type="file" accept="application/json" hidden />
+      </section>
+
       <section class="gantt-card">
         <h2>横棒工程表（当月）</h2>
         <form id="workForm" class="task-form">
