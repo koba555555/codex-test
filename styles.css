@@ -1,0 +1,248 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --line: #d9e1ef;
+  --primary: #2b6cb0;
+  --primary-soft: #dbeafe;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --danger: #dc2626;
+  --ok: #16a34a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.app-header { text-align: center; padding: 1rem; }
+.app-header h1 { margin: 0; font-size: 1.35rem; }
+.app-header p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.95rem; }
+
+.layout {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: 1.2fr 1fr;
+}
+
+.calendar-card,
+.task-card,
+.gantt-card,
+.data-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.8rem;
+}
+
+.gantt-card,
+.data-card { grid-column: 1 / -1; }
+.gantt-card h2 { margin: 0 0 0.6rem; font-size: 1rem; }
+
+.calendar-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.calendar-topbar button {
+  border: 1px solid var(--line);
+  background: white;
+  border-radius: 10px;
+  padding: 0.4rem 0.65rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.calendar-topbar h2 { margin: 0; font-size: 1.1rem; }
+.weekdays,
+.calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.3rem; }
+.weekdays { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.35rem; }
+.weekdays span,
+.day { text-align: center; }
+
+.day {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  min-height: 64px;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.2rem;
+  cursor: pointer;
+}
+
+.day.other-month { opacity: 0.4; }
+.day.today { border-color: var(--primary); }
+.day.selected { background: var(--primary-soft); border-color: var(--primary); }
+.day-num { font-weight: 700; font-size: 0.85rem; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
+
+.task-card h2 { margin: 0 0 0.6rem; font-size: 1rem; }
+.task-form { display: grid; gap: 0.6rem; margin-bottom: 0.8rem; }
+.task-form label { display: grid; gap: 0.2rem; font-size: 0.9rem; }
+.task-form input { border: 1px solid var(--line); border-radius: 10px; padding: 0.55rem; }
+.task-form button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem;
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.compact { margin-bottom: 0.6rem; }
+.form-grid { display: grid; gap: 0.55rem; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.55rem;
+}
+
+.task-text { margin: 0; font-weight: 700; }
+.task-note { color: var(--muted); }
+
+.delete-btn {
+  background: #fff;
+  color: var(--danger);
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 0.7rem;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+}
+
+.gantt-body {
+  display: grid;
+  gap: 0.4rem;
+  overflow-x: auto;
+}
+
+.gantt-row {
+  min-width: 860px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.gantt-meta {
+  font-size: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.45rem;
+  background: #fff;
+}
+
+.gantt-meta strong { display: block; font-size: 0.92rem; }
+.gantt-meta small { color: var(--muted); }
+
+.gantt-track {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  min-height: 38px;
+  background-image: linear-gradient(to right, rgba(217,225,239,0.45) 1px, transparent 1px);
+  background-size: calc(100% / var(--days-in-month)) 100%;
+}
+
+.gantt-bar {
+  position: absolute;
+  top: 7px;
+  height: 22px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.55rem;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.gantt-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: 0.35rem;
+  font-weight: 700;
+}
+
+.gantt-progress::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .day { min-height: 56px; }
+  .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.install-btn {
+  margin-top: 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.5rem 0.7rem;
+  background: #fff;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.install-hint {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--muted);
+}
+
+
+.data-card h2 { margin: 0 0 0.4rem; font-size: 1rem; }
+.data-note { margin: 0 0 0.6rem; color: var(--muted); font-size: 0.9rem; }
+.data-actions { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.data-actions button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.58rem 0.7rem;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+.data-actions .secondary { background: #0f766e; }
+.data-actions .danger { background: var(--danger); }
