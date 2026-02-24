@@ -2,109 +2,13 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>現場向け 工程表＆やることリスト</title>
-    <meta name="theme-color" content="#2b6cb0" />
-    <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>工事日誌PWA</title>
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="apple-touch-icon" href="/icons/icon.svg" />
   </head>
-  <body>
-    <header class="app-header">
-      <h1>現場向け 工程表＆やることリスト</h1>
-      <p>横棒工程（ガント風）+ 日別タスク。スマホ対応。</p>
-      <button id="installAppBtn" class="install-btn" type="button" hidden>このページをアプリ化</button>
-      <small id="installHint" class="install-hint">iPhoneは Safari の共有メニュー → 「ホーム画面に追加」</small>
-    </header>
-
-    <main class="layout">
-      <section class="calendar-card">
-        <div class="calendar-topbar">
-          <button id="prevMonth" aria-label="前の月">◀</button>
-          <h2 id="monthLabel"></h2>
-          <button id="nextMonth" aria-label="次の月">▶</button>
-        </div>
-
-        <div class="weekdays" aria-hidden="true">
-          <span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span>
-        </div>
-
-        <div id="calendarGrid" class="calendar-grid"></div>
-      </section>
-
-      <section class="task-card">
-        <h2 id="selectedDateLabel">日付を選んでください</h2>
-
-        <form id="taskForm" class="task-form compact">
-          <label>
-            やること
-            <input id="taskInput" type="text" placeholder="例）朝礼・安全確認" required />
-          </label>
-          <label>
-            メモ（任意）
-            <input id="noteInput" type="text" placeholder="例）KY資料を配布" />
-          </label>
-          <button type="submit">追加</button>
-        </form>
-
-        <ul id="taskList" class="task-list"></ul>
-      </section>
-
-
-      <section class="data-card">
-        <h2>データの保存・引っ越し</h2>
-        <p class="data-note">機種変更前やバックアップしたい時に使ってください。</p>
-        <div class="data-actions">
-          <button id="exportDataBtn" type="button">バックアップを書き出し</button>
-          <button id="importDataBtn" type="button" class="secondary">バックアップを読み込み</button>
-          <button id="resetDataBtn" type="button" class="danger">この端末のデータを全削除</button>
-        </div>
-        <input id="importDataFile" type="file" accept="application/json" hidden />
-      </section>
-
-      <section class="gantt-card">
-        <h2>横棒工程表（当月）</h2>
-        <form id="workForm" class="task-form">
-          <div class="form-grid">
-            <label>
-              工種/工程名
-              <input id="workTitleInput" type="text" placeholder="例）掘削工" required />
-            </label>
-            <label>
-              担当（任意）
-              <input id="workOwnerInput" type="text" placeholder="例）A班" />
-            </label>
-            <label>
-              開始日
-              <input id="workStartInput" type="date" required />
-            </label>
-            <label>
-              終了日
-              <input id="workEndInput" type="date" required />
-            </label>
-            <label>
-              進捗(%)
-              <input id="workProgressInput" type="number" min="0" max="100" value="0" required />
-            </label>
-          </div>
-          <button type="submit">工程を追加</button>
-        </form>
-
-        <div id="ganttEmpty" class="empty">この月の工程はまだありません。</div>
-        <div id="ganttBody" class="gantt-body"></div>
-      </section>
-    </main>
-
-    <template id="taskItemTemplate">
-      <li class="task-item">
-        <div>
-          <p class="task-text"></p>
-          <small class="task-note"></small>
-        </div>
-        <button class="delete-btn" type="button">削除</button>
-      </li>
-    </template>
-
-    <script src="script.js"></script>
+  <body class="bg-slate-100">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
