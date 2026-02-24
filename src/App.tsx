@@ -248,7 +248,7 @@ export default function App() {
   );
 
   return (
-    <div className="mx-auto max-w-6xl p-3 pb-24 text-sm text-slate-900">
+    <div className="mx-auto max-w-6xl p-3 pb-[calc(7rem+env(safe-area-inset-bottom))] text-sm text-slate-900">
       <h1 className="mb-1 text-xl font-bold">工事日誌PWA</h1>
       <p className="mb-4 text-xs text-slate-600">オフライン対応 / IndexedDB保存 / iPhoneホーム画面追加対応</p>
       <div className="grid gap-3 md:grid-cols-[360px_1fr]">
@@ -267,21 +267,21 @@ export default function App() {
             ))}
           </div>
           <div className="mt-2 grid grid-cols-2 gap-2">
-            <button type="button" className="rounded bg-blue-700 p-3 font-bold text-white" onClick={newDiary}>新規</button>
-            <button type="button" className="rounded bg-emerald-700 p-3 font-bold text-white" onClick={persistDiary}>保存</button>
-            <button type="button" className="rounded bg-amber-600 p-3 font-bold text-white" onClick={duplicateDiary}>複製</button>
-            <button type="button" className="rounded bg-red-700 p-3 font-bold text-white" onClick={() => selectedId && deleteDiary(selectedId)} disabled={!selectedId}>削除</button>
+            <button type="button" className="min-h-12 rounded bg-blue-700 p-3 font-bold text-white" onClick={newDiary}>新規</button>
+            <button type="button" className="min-h-12 rounded bg-emerald-700 p-3 font-bold text-white" onClick={persistDiary}>保存</button>
+            <button type="button" className="min-h-12 rounded bg-amber-600 p-3 font-bold text-white" onClick={duplicateDiary}>複製</button>
+            <button type="button" className="min-h-12 rounded bg-red-700 p-3 font-bold text-white" onClick={() => selectedId && deleteDiary(selectedId)} disabled={!selectedId}>削除</button>
           </div>
           <button type="button" className="mt-2 w-full rounded bg-slate-500 p-2 font-bold text-white" onClick={seedSample}>サンプルデータ投入</button>
           {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
         </section>
 
         <section className="rounded-xl bg-white p-3 shadow">
-          <div className="mb-2 grid grid-cols-5 gap-1 text-xs font-bold">
+          <div className="mb-2 grid grid-cols-5 gap-1 text-xs font-bold md:text-sm">
             {([
               ['basic', '基本'], ['materials', '材料/人員'], ['temperature', '温度'], ['photos', '写真'], ['export', '確認&出力']
             ] as [Tab, string][]).map(([key, label]) => (
-              <button type="button" key={key} className={`rounded p-2 ${tab === key ? 'bg-blue-700 text-white' : 'bg-slate-200'}`} onClick={() => setTab(key)}>{label}</button>
+              <button type="button" key={key} className={`min-h-11 rounded p-2 ${tab === key ? 'bg-blue-700 text-white' : 'bg-slate-200'}`} onClick={() => setTab(key)}>{label}</button>
             ))}
           </div>
 
